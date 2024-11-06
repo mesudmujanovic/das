@@ -1,0 +1,280 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+
+  .timer {
+      position: absolute;
+      width: 10px;
+      max-height: 150px;
+      height: 145px;
+      background-color: white;
+      padding: 0;
+      left: 50%;
+      top: 32%;
+      transform: translate(-50%, -46%);
+
+
+      .timer-bar {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          height: 0%;
+          width: 100%;
+          padding: 0;
+          background: red;
+          transition: height 1s linear;
+      }
+  }
+
+  .finall {
+      text-align: center;
+      cursor: pointer;
+
+      .finall-input {
+          width: 300px;
+          background-color: #5356FF;
+          text-align: center;
+          border: 2px solid black;
+          border-radius: 5px;
+          padding: 2px;
+          color: white;
+
+          &::placeholder {
+              color: white;
+          }
+
+          &.background-class {
+              background-color: red !important;
+          }
+      }
+  }
+
+  .column {
+      cursor: pointer;
+      margin-top: 10px;
+      margin-bottom: 5px;
+
+      &.a {
+          display: flex;
+          justify-content: flex-end;
+          width: 100%;
+
+          .columnA {
+              text-align: center;
+
+              .item {
+                  border: 2px solid black;
+                  border-radius: 5px;
+                  background-color: #5356FF;
+                  margin-bottom: 5px;
+                  width: 200px;
+                  padding: 2px;
+                  color: white;
+
+                  &:nth-child(1) {
+                      margin-left: 30px;
+                  }
+
+                  &:nth-child(2) {
+                      margin-left: 60px;
+                  }
+
+                  &:nth-child(3) {
+                      margin-left: 90px;
+                  }
+
+                  &:nth-child(4) {
+                      margin-left: 120px;
+                  }
+
+                  &.background-class {
+                      background-color: red !important;
+                  }
+              }
+
+              .inputA {
+                  margin-left: 160px;
+                  cursor: pointer;
+                  text-align: center;
+
+                  &::placeholder {
+                      color: white;
+                      text-align: center;
+                  }
+              }
+          }
+      }
+
+      &.b {
+          display: flex;
+          width: 100%;
+
+          .columnB {
+              text-align: center;
+
+              .item {
+                  border: 2px solid black;
+                  border-radius: 5px;
+                  background-color: #5356FF;
+                  margin-bottom: 5px;
+                  width: 200px;
+                  padding: 2px;
+                  color: white;
+
+                  &:nth-child(1) {
+                      margin-left: 120px;
+                  }
+
+                  &:nth-child(2) {
+                      margin-left: 90px;
+                  }
+
+                  &:nth-child(3) {
+                      margin-left: 60px;
+                  }
+
+                  &:nth-child(4) {
+                      margin-left: 30px;
+                  }
+
+                  &.background-class {
+                      background-color: red !important;
+                  }
+              }
+
+              .inputB {
+                  margin-right: 160px;
+                  cursor: pointer;
+                  text-align: center;
+
+                  &::placeholder {
+                      color: white;
+                      text-align: center;
+                  }
+              }
+          }
+      }
+
+      &.c {
+          display: flex;
+          justify-content: flex-end;
+          width: 100%;
+
+          .columnC {
+              text-align: center;
+              cursor: pointer;
+
+              .item {
+                  border: 2px solid black;
+                  border-radius: 5px;
+                  background-color: #5356FF;
+                  margin-bottom: 5px;
+                  width: 200px;
+                  padding: 2px;
+                  color: white;
+
+                  &:nth-child(1) {
+                      margin-left: 120px;
+                  }
+
+                  &:nth-child(2) {
+                      margin-left: 90px;
+                  }
+
+                  &:nth-child(3) {
+                      margin-left: 60px;
+                  }
+
+                  &:nth-child(4) {
+                      margin-left: 30px;
+                  }
+
+                  &.background-class {
+                      background-color: red !important;
+                  }
+              }
+
+              .inputC {
+                  margin-left: 160px;
+                  cursor: pointer;
+                  text-align: center;
+
+                  &::placeholder {
+                      color: white;
+                      text-align: center;
+                  }
+              }
+          }
+      }
+
+      &.d {
+          display: flex;
+          justify-content: flex-start;
+          width: 100%;
+
+          .columnD {
+              text-align: center;
+
+              .item {
+                  border: 2px solid black;
+                  border-radius: 5px;
+                  background-color: #5356FF;
+                  margin-bottom: 5px;
+                  width: 200px;
+                  padding: 2px;
+                  color: white;
+
+                  &:nth-child(5) {
+                      margin-left: 120px;
+                  }
+
+                  &:nth-child(2) {
+                      margin-left: 30px;
+                  }
+
+                  &:nth-child(3) {
+                      margin-left: 60px;
+                  }
+
+                  &:nth-child(4) {
+                      margin-left: 90px;
+                  }
+
+                  &.background-class {
+                      background-color: red !important;
+                  }
+              }
+
+              .inputD {
+                  margin-right: 160px;
+                  cursor: pointer;
+                  text-align: center;
+
+                  &::placeholder {
+                      color: white;
+                      text-align: center;
+                  }
+              }
+          }
+      }
+  }
+
+  @media (max-width: 768px) {
+      .column {
+          .item {
+              margin-left: 0;
+              width: 100%;
+          }
+      }
+  }
+
+  .input {
+      background-color: #5356FF;
+      margin-left: 160px;
+      border: 2px solid black;
+      border-radius: 5px;
+  }
+}

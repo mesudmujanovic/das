@@ -1,0 +1,79 @@
+import { Injectable } from '@angular/core';
+import { MyNumberI } from 'lib/domains/src/lib/my-number/interface/my-number-inteface';
+import { catchError, from, map, of, reduce } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CalculationService {
+
+  private _toShow: string = '0';
+
+  public get toShow(): string {
+    return this._toShow;
+  }
+
+  public set toShow(value: string) {
+    this._toShow = value;
+  }
+
+
+  equals( { number1, number2, number3, number4, number5, number6, result }: MyNumberI) {
+
+    const allNumbers = [number1, number2, number3, number4, number5, number6].map(num => num?.toString());
+    const numbersInShow = this._toShow.match(/\d+/g) || [];
+
+    const numbersObservable = from(numbersInShow).pipe(
+      map(num => parseInt(num)),
+      reduce((acc, curr) => acc + curr, 0),
+      catchError(err => {
+        console.error(err);
+        return of(NaN);
+      })
+    );
+
+    if (numbersInShow) {
+      numbersObservable.subscribe(
+        sum => {
+          const countOccurrences = (arr: string[]) => {
+            return arr.reduce((acc, num) => {
+              acc[num] = (acc[num] || 0) + 1;
+                return acc;
+            }, {} as { [key: string]: number });
+          };
+
+          const allNumbersCount = countOccurrences(allNumbers);
+          const numbersInShowCount = countOccurrences(numbersInShow);
+          const isEveryNumberIncluded = Object.keys(numbersInShowCount).every(key => {
+            return allNumbersCount[key] && numbersInShowCount[key] <= allNumbersCount[key];
+          });
+
+          if (isEveryNumberIncluded) {
+            if (result === sum) {
+              alert("Čestitamo! Pogodili ste tačan broj!");
+            } else {
+              alert("Rezultat se ne poklapa sa unetim izrazom, pokušajte ponovo.");
+            }
+          } else {
+            alert("Uneti brojevi se ne nalaze u izrazu ili su uneti više puta nego što je dozvoljeno.");
+          }
+        },
+        err => {
+          console.error(err);
+          alert(`Došlo je do greške: ${err.message}`);
+        }
+      );
+    }
+  }
+
+  writeToInput(value: string) {
+    this._toShow += value;
+  }
+
+  clear() {
+    this._toShow = '0';
+  }
+
+  back() {
+    this._toShow = this._toShow.slice(0, -1);
+  }}

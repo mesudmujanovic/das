@@ -1,0 +1,10 @@
+{
+  "name": "association-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/association-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["association"],
+  "// targets": "to see all targets run: nx show project association-e2e --web",
+  "targets": {}
+}
