@@ -12,12 +12,16 @@ export class AssociationService {
               @Inject('environment') private environment: Record<string, string | boolean | number>){
   }
 
+  // getCounter(): Observable<number> {
+  //   const stopAfter30s$ = timer(33000);
+  //   return interval(1000).pipe(
+  //     switchMap(() => this.http.get<number>(`${this.environment['ENDPOINT']}/counter`)),
+  //     takeUntil(stopAfter30s$)
+  //   );
+  // }
+
   getCounter(): Observable<number> {
-    const stopAfter30s$ = timer(33000);
-    return interval(1000).pipe(
-      switchMap(() => this.http.get<number>(`${this.environment['ENDPOINT']}/counter`)),
-      takeUntil(stopAfter30s$)
-    );
+    return this.http.get<number>(`${this.environment['ENDPOINT']}/counter`);
   }
 
   getRandomAssociationOnlyById(): Observable<number> {

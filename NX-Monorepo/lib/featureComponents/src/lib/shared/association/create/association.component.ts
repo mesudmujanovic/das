@@ -55,10 +55,6 @@ export class AssociationComponent {
   }
 
   ngOnInit() {
-    this.assocService.getCounter().pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(counter => this.counter = counter)
-
     this.startTimer();
     this.assocService.getRandomAssociationOnlyById().pipe(
       takeUntil(this.destroy$),
@@ -87,12 +83,22 @@ export class AssociationComponent {
         }
       })
     ).subscribe();
+    interval(4000).pipe(
+      takeUntil(stopAfter30s$),
+      switchMap(() => this.assocService.getCounter())
+    ).subscribe(counterFromServer => {
+      this.counter = counterFromServer
+      const percentage = ((30 - counterFromServer) / 29) * 100;
+      const timerBar = this.timeBar.nativeElement as HTMLElement;
+      timerBar.style.height = `${percentage}%`;
+      console.log("counterFromServer", counterFromServer);
+    });
   }
 
   private updateTimerBar() {
-    const percentage = ((30 - this.counter) / 29) * 100;
-    const timerBar = this.timeBar.nativeElement as HTMLElement;
-    timerBar.style.height = `${percentage}%`;
+    // const percentage = ((30 - this.counter) / 29) * 100;
+    // const timerBar = this.timeBar.nativeElement as HTMLElement;
+    // timerBar.style.height = `${percentage}%`;
   }
 
   ngOnDestroy() {
@@ -155,7 +161,7 @@ export class AssociationComponent {
                 this.updateElements(column);
                 this.renderer.addClass(this.finall.nativeElement, 'background-class');
                 ////  [A]     [0 prvi field]   = prvi field -> field.text
-                this.router.navigate(['/number']);
+                // this.router.navigate(['/number']);
               }
             });
           }

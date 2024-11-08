@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.example.demo.hexagonal_architecture.core.service.association.FieldServiceImplDiffblueTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.904 s -- in com.example.demo.hexagonal_architecture.core.service.association.FieldServiceImplDiffblueTest
