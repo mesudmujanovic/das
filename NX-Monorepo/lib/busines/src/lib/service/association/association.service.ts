@@ -1,7 +1,7 @@
 import { AssociationI, MessageResponseI, FieldI } from '../../../../../domains/src/lib/association/interface/index';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { catchError, interval, Observable, switchMap, takeUntil, throwError, timer } from 'rxjs';
+import { catchError, Observable, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,16 +12,12 @@ export class AssociationService {
               @Inject('environment') private environment: Record<string, string | boolean | number>){
   }
 
-  // getCounter(): Observable<number> {
-  //   const stopAfter30s$ = timer(33000);
-  //   return interval(1000).pipe(
-  //     switchMap(() => this.http.get<number>(`${this.environment['ENDPOINT']}/counter`)),
-  //     takeUntil(stopAfter30s$)
-  //   );
-  // }
-
   getCounter(): Observable<number> {
     return this.http.get<number>(`${this.environment['ENDPOINT']}/counter`);
+  }
+
+  stopCounter() {
+    return this.http.get<number>('http://localhost:8080/associations-game/counter/reset');
   }
 
   getRandomAssociationOnlyById(): Observable<number> {

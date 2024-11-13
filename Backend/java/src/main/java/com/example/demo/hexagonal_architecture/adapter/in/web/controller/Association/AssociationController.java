@@ -41,10 +41,9 @@ public class AssociationController {
         return currentCounter;
     }
 
-    // Endpoint za resetovanje brojača ako je potrebno
     @PostMapping("/counter/reset")
     public void resetCounter() {
-        counterService.resetCounter();
+        counterService.stopCounterTask();
         System.out.println("Brojač je resetovan na početnu vrednost.");
     }
 

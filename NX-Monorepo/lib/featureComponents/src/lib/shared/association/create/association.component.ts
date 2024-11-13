@@ -4,8 +4,7 @@ import { ChangeDetectorRef, Component, ElementRef, inject, QueryList, Renderer2,
 import { CommonModule } from '@angular/common';
 import { catchError, EMPTY, interval, map, of, Subject, Subscription, switchMap, takeUntil, tap, timer } from 'rxjs';
 import { AssociationI, FieldI } from 'lib/domains/src/lib/association/interface';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
-import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'lib-association',
@@ -20,7 +19,6 @@ export class AssociationComponent {
   private sessionStorage = inject(StorageService);
   private renderer = inject(Renderer2);
   private cdr = inject(ChangeDetectorRef);
-  private router = inject(Router);
 
   @ViewChildren('itemA') itemElementsA!: QueryList<ElementRef>;
   @ViewChildren('itemB') itemElementsB!: QueryList<ElementRef>;
@@ -29,7 +27,6 @@ export class AssociationComponent {
   @ViewChild('finall') finall!: ElementRef;
   @ViewChild('timebar') timeBar!: ElementRef;
 
-  counter: number = 30;
   private destroy$ = new Subject<void>();
   private associationId: number = 1;
   randIndexAssoc: AssociationI | undefined;
@@ -41,6 +38,7 @@ export class AssociationComponent {
     A: [false, false, false, false], B: [false, false, false, false],
     C: [false, false, false, false], D: [false, false, false, false]
   };
+  counter: number = 30;
 
   constructor() {
     this.itemText = {
@@ -66,13 +64,18 @@ export class AssociationComponent {
   }
 
   private startTimer() {
+    this.assocService.getCounter().subscribe(
+      serverCounter => {
+        this.counter = serverCounter;
+        console.log("funkcija", this.counter);        
+      }
+    )
     const stopAfter30s$ = timer(33000);
     this.timerSubscription = interval(1000).pipe(
       takeUntil(stopAfter30s$),
       tap(() => {
         if (this.counter != null && this.counter > 0) {
           console.log(this.counter);
-          this.updateTimerBar();
           this.counter--;
         } else {
           this.timerSubscription?.unsubscribe();
@@ -83,22 +86,25 @@ export class AssociationComponent {
         }
       })
     ).subscribe();
-    interval(4000).pipe(
+    interval(1000).pipe(
       takeUntil(stopAfter30s$),
       switchMap(() => this.assocService.getCounter())
     ).subscribe(counterFromServer => {
-      this.counter = counterFromServer
-      const percentage = ((30 - counterFromServer) / 29) * 100;
-      const timerBar = this.timeBar.nativeElement as HTMLElement;
-      timerBar.style.height = `${percentage}%`;
+      this.updateTimerBar(counterFromServer);
       console.log("counterFromServer", counterFromServer);
     });
   }
 
-  private updateTimerBar() {
-    // const percentage = ((30 - this.counter) / 29) * 100;
-    // const timerBar = this.timeBar.nativeElement as HTMLElement;
-    // timerBar.style.height = `${percentage}%`;
+  private updateTimerBar(counterFromServer: number) {
+    const percentage = ((30 - counterFromServer) / 29) * 100;
+    const timerBar = this.timeBar.nativeElement as HTMLElement;
+    timerBar.style.height = `${percentage}%`;
+  }
+
+  private endGame() {
+    this.timerSubscription.unsubscribe();
+    this.counter = 0; 
+    console.log("Tajmer zaustavljen, counter postavljen na 0.");
   }
 
   ngOnDestroy() {
@@ -143,6 +149,7 @@ export class AssociationComponent {
             this.associationId = res.id;
             if(this.finallResult !== undefined) {
               this.finallResult = res.finalSolutions;
+              this.assocService.stopCounter();
             }
             this.sessionStorage.setItem("randomAssociationId", this.associationId.toString());
             this.columnInput = (({ A, B, C, D }) => ({ A, B, C, D }))(res.solutions);
