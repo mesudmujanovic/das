@@ -1,7 +1,7 @@
 import { AssociationI, MessageResponseI, FieldI } from '../../../../../domains/src/lib/association/interface/index';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { catchError, Observable, throwError} from 'rxjs';
+import { catchError, Observable, of, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +16,13 @@ export class AssociationService {
     return this.http.get<number>(`${this.environment['ENDPOINT']}/counter`);
   }
 
-  stopCounter() {
-    return this.http.get<number>('http://localhost:8080/associations-game/counter/reset');
+  stopCounter(): Observable<void> {
+    return this.http.post<void>('http://localhost:8080/associations-game/counter/reset', {}).pipe(
+      catchError((error) => {
+        console.error("Greska pri pozivanju http", error);
+        return of();
+      })
+    );
   }
 
   getRandomAssociationOnlyById(): Observable<number> {

@@ -28,7 +28,6 @@ public class CounterService {
         }
     }
 
-    // Smanjuje brojač ako je aktivan i ispisuje trenutnu vrednost
     private void decrementCounter() {
         if (isActive && COUNTER > 0) {
             COUNTER--;
@@ -40,16 +39,12 @@ public class CounterService {
         }
     }
 
-    // Vraća trenutnu vrednost brojača bez njegovog smanjenja
     public int getCounter() {
         return COUNTER;
     }
-
-    // Resetuje brojač na početnu vrednost
     public void resetCounter() {
         COUNTER = 30;
-        isActive = true;
-        startCounterTask();
-        System.out.println("Brojač je resetovan na početnu vrednost: " + COUNTER);
+        isActive = false;
+        System.out.println("Counter na početnu vrednost: " + COUNTER);
     }
 }

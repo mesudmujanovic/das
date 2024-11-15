@@ -63,48 +63,43 @@ export class AssociationComponent {
     ).subscribe();
   }
 
-  private startTimer() {
-    this.assocService.getCounter().subscribe(
-      serverCounter => {
-        this.counter = serverCounter;
-        console.log("funkcija", this.counter);        
-      }
-    )
-    const stopAfter30s$ = timer(33000);
-    this.timerSubscription = interval(1000).pipe(
-      takeUntil(stopAfter30s$),
-      tap(() => {
-        if (this.counter != null && this.counter > 0) {
-          console.log(this.counter);
-          this.counter--;
-        } else {
-          this.timerSubscription?.unsubscribe();
-          this.assocService.getAssociationById(1).subscribe((a) => {
-            const getFinalSolutionIfGameIsOver = a.finalSolutions;
-            this.finalColumn(getFinalSolutionIfGameIsOver);
-          });
-        }
-      })
-    ).subscribe();
-    interval(1000).pipe(
-      takeUntil(stopAfter30s$),
-      switchMap(() => this.assocService.getCounter())
-    ).subscribe(counterFromServer => {
-      this.updateTimerBar(counterFromServer);
-      console.log("counterFromServer", counterFromServer);
+  public resetCounter() {
+    this.timerSubscription?.unsubscribe(); 
+  
+    this.assocService.stopCounter().subscribe(() => {
+      console.log("Brojač je resetovan.");
     });
   }
 
+private startTimer() {
+  const stopAfter30s$ = timer(33000);
+
+  this.timerSubscription = interval(1000).pipe(
+    takeUntil(stopAfter30s$),
+    switchMap(() => this.assocService.getCounter()), 
+    tap(counterFromServer => {
+      console.log("Server brojac:", counterFromServer);
+      this.updateTimerBar(counterFromServer);
+
+      if (counterFromServer <= 0) {
+        console.log("Brojac dostigao nulu");
+        this.timerSubscription?.unsubscribe();
+        this.handleGameOver();
+      }
+    })
+  ).subscribe();
+}
+
+private handleGameOver() {
+  this.assocService.getAssociationById(1).subscribe(association => {
+    this.finalColumn(association.finalSolutions);
+  });
+}
+  
   private updateTimerBar(counterFromServer: number) {
     const percentage = ((30 - counterFromServer) / 29) * 100;
     const timerBar = this.timeBar.nativeElement as HTMLElement;
     timerBar.style.height = `${percentage}%`;
-  }
-
-  private endGame() {
-    this.timerSubscription.unsubscribe();
-    this.counter = 0; 
-    console.log("Tajmer zaustavljen, counter postavljen na 0.");
   }
 
   ngOnDestroy() {
@@ -149,7 +144,6 @@ export class AssociationComponent {
             this.associationId = res.id;
             if(this.finallResult !== undefined) {
               this.finallResult = res.finalSolutions;
-              this.assocService.stopCounter();
             }
             this.sessionStorage.setItem("randomAssociationId", this.associationId.toString());
             this.columnInput = (({ A, B, C, D }) => ({ A, B, C, D }))(res.solutions);
@@ -158,6 +152,7 @@ export class AssociationComponent {
 
             });
             res.fields.forEach(field => {
+              this.resetCounter();
               const column = field.columnPosition;
               const position = field.position;
               const index = this.itemText[column].indexOf(position);

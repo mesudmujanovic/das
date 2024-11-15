@@ -26,24 +26,17 @@ public class AssociationController {
     private final AssociationServiceImpl associationServiceImpl;
     private final CounterService counterService;
 
-//    public AssociationController(AssociationService associationService, AssociationServiceImpl associationServiceImpl, CounterService counterService) {
-//        this.associationService = associationService;
-//        this.associationServiceImpl = associationServiceImpl;
-//        this.counterService = counterService;
-//        this.counterService.startCounterTask();
-//    }
-
     @GetMapping("/counter")
     public int getCounter() {
         this.counterService.startCounterTask();
         int currentCounter = counterService.getCounter();
-        System.out.println("Trenutna vrednost brojača: " + currentCounter);
+        System.out.println("Trenutna vrednost: " + currentCounter);
         return currentCounter;
     }
 
     @PostMapping("/counter/reset")
     public void resetCounter() {
-        counterService.stopCounterTask();
+        counterService.resetCounter();
         System.out.println("Brojač je resetovan na početnu vrednost.");
     }
 
