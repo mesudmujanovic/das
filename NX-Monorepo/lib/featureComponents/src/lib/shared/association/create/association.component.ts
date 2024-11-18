@@ -63,14 +63,6 @@ export class AssociationComponent {
     ).subscribe();
   }
 
-  public resetCounter() {
-    this.timerSubscription?.unsubscribe(); 
-  
-    this.assocService.stopCounter().subscribe(() => {
-      console.log("Brojač je resetovan.");
-    });
-  }
-
 private startTimer() {
   const stopAfter30s$ = timer(33000);
 
@@ -88,6 +80,14 @@ private startTimer() {
       }
     })
   ).subscribe();
+}
+
+public resetCounter() {
+  this.timerSubscription?.unsubscribe(); 
+
+  this.assocService.stopCounter().subscribe(() => {
+    console.log("Brojač je resetovan.");
+  });
 }
 
 private handleGameOver() {
