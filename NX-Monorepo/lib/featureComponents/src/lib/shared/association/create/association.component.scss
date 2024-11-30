@@ -1,3 +1,5 @@
+@import '../../colors.scss';
+
 .wrapper {
   display: flex;
   justify-content: center;
@@ -31,13 +33,13 @@
                 text-align: center;
   
                 .item {
-                    border: 2px solid black;
+                    border: $border_black;
                     border-radius: 5px;
-                    background-color: #5356FF;
+                    background-color: $background_items;
                     margin-bottom: 5px;
                     width: 200px;
                     padding: 2px;
-                    color: white;
+                    color: $white_classic;
                     height: 25px;
   
                     &:nth-child(1) {
@@ -57,7 +59,7 @@
                     }
   
                     &.background-class {
-                        background-color: red !important;
+                        background-color: $brown !important;
                     }
                 }
   
@@ -67,7 +69,7 @@
                     text-align: center;
   
                     &::placeholder {
-                        color: white;
+                        color: $white_classic;
                         text-align: center;
                     }
                 }
@@ -82,13 +84,13 @@
                 text-align: center;
   
                 .item {
-                    border: 2px solid black;
+                    border: $border_black;
                     border-radius: 5px;
-                    background-color: #5356FF;
+                    background-color: $background_items;
                     margin-bottom: 5px;
                     width: 200px;
                     padding: 2px;
-                    color: white;
+                    color: $white_classic;
   
                     &:nth-child(1) {
                         margin-left: 120px;
@@ -107,7 +109,7 @@
                     }
   
                     &.background-class {
-                        background-color: red !important;
+                        background-color: $brown !important;
                     }
                 }
   
@@ -117,7 +119,7 @@
                     text-align: center;
   
                     &::placeholder {
-                        color: white;
+                        color: $white_classic;
                         text-align: center;
                     }
                 }
@@ -134,13 +136,13 @@
                 cursor: pointer;
   
                 .item {
-                    border: 2px solid black;
+                    border: $border_black;
                     border-radius: 5px;
-                    background-color: #5356FF;
+                    background-color: $background_items;
                     margin-bottom: 5px;
                     width: 200px;
                     padding: 2px;
-                    color: white;
+                    color: $white_classic;
   
                     &:nth-child(1) {
                         margin-left: 120px;
@@ -159,7 +161,7 @@
                     }
   
                     &.background-class {
-                        background-color: red !important;
+                        background-color: $brown !important;
                     }
                 }
   
@@ -169,7 +171,7 @@
                     text-align: center;
   
                     &::placeholder {
-                        color: white;
+                        color: $white_classic;
                         text-align: center;
                     }
                 }
@@ -185,13 +187,13 @@
                 text-align: center;
   
                 .item {
-                    border: 2px solid black;
+                    border: $border_black;
                     border-radius: 5px;
-                    background-color: #5356FF;
+                    background-color: $background_items;
                     margin-bottom: 5px;
                     width: 200px;
                     padding: 2px;
-                    color: white;
+                    color: $white_classic;
   
                     &:nth-child(5) {
                         margin-left: 120px;
@@ -210,7 +212,7 @@
                     }
   
                     &.background-class {
-                        background-color: red !important;
+                        background-color: $brown !important;
                     }
                 }
   
@@ -220,7 +222,7 @@
                     text-align: center;
   
                     &::placeholder {
-                        color: white;
+                        color: $white_classic;
                         text-align: center;
                     }
                 }
@@ -229,30 +231,30 @@
     }
 }
   
-  .timer {
-      position: absolute;
-      width: 10px;
-      max-height: 150px;
-      height: 130px;
-      background-color: white;
-      padding: 0;
-      border: 1px solid red;
-      left: 50%;
-      top: 22%;
-      transform: translate(-30%, -46%);
+.timer {
+    position: absolute;
+    width: 10px;
+    max-height: 150px;
+    height: 130px;
+    background-color: $white_classic;
+    padding: 0;
+    border: 2px solid $background_items;
+    left: 50%;
+    top: 22%;
+    transform: translate(-30%, -46%);
 
 
-      .timer-bar {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          height: 0%;
-          width: 100%;
-          padding: 0;
-          background: red;
-          transition: height 1s linear;
-      }
-  }
+    .timer-bar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 0%;
+        width: 100%;
+        padding: 0;
+        background: $brown;
+        transition: height 1s linear;
+    }
+}
 
   .finall {
       text-align: center;
@@ -260,38 +262,52 @@
 
       .finall-input {
           width: 300px;
-          background-color: #5356FF;
+          background-color: $background_items;
           text-align: center;
-          border: 2px solid black;
+          border: $border_black;
           border-radius: 5px;
           padding: 2px;
-          color: white;
+          color: $white_classic;
           height: 25px;
 
           &::placeholder {
-              color: white;
+              color: $white_classic;
           }
 
           &.background-class {
-              background-color: red !important;
+              background-color: $brown !important;
           }
       }
   }
 
 
   @media (max-width: 768px) {
-      .column {
-          .item {
-              margin-left: 0;
-              width: 100%;
-          }
+    .columnA {
+      .item {
+        // Koristeći incrementalne marginice za manje ekrane
+        &:nth-child(1) {
+          margin-left: 10px;
+        }
+  
+        &:nth-child(2) {
+          margin-left: 40px;
+        }
+  
+        &:nth-child(3) {
+          margin-left: 70px;
+        }
+  
+        &:nth-child(4) {
+          margin-left: 100px;
+        }
       }
+    }
   }
 
   .input {
-      background-color: #5356FF;
+      background-color: $background_items;
       margin-left: 160px;
-      border: 2px solid black;
+      border: $border_black;
       border-radius: 5px;
   }
 }

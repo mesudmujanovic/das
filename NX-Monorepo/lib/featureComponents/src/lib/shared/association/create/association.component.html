@@ -6,7 +6,7 @@
     </div>
   </div>
 
-  <!-- Kolona A kao red -->
+  <!-- Kolona A -->
   <div class="row">
     <div class="first_column">
       <div class="column a">
@@ -19,7 +19,7 @@
             [disabled]="isColumnGuessed['A']" (change)="handleInputChange('A')" #itemA>
         </div>
       </div>
-  
+    <!-- Kolona B -->
       <div class="column b">
         <div class="columnB">
           <div *ngFor="let item of itemText['B']; let i = index" class="item" #itemB
@@ -40,6 +40,7 @@
     </div>
 
    <div class="second_column">
+    <!-- Kolona C -->
     <div class="column c">
       <div class="columnC">
         <input class="item inputC" type="text" [(ngModel)]="columnInput['C']" placeholder="Column C"
@@ -52,6 +53,7 @@
     </div>
 
     <div class="column d">
+      <!-- Kolona D -->
       <div class="columnD" #ColumnD>
         <input class="item inputD" type="text" [(ngModel)]="columnInput['D']" placeholder="Column D"
           [disabled]="isColumnGuessed['D']" (change)="handleInputChange('D')" #itemD>
