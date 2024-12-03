@@ -1,68 +1,74 @@
 <div class="container wrapper">
-  <!-- Tajmer -->
-  <div class="row">
-    <div class="timer">
-      <div class="timer-bar" #timebar></div>
-    </div>
-  </div>
+<div class="mesko">
+    <!-- Tajmer -->
+    <!-- <div class="row">
+      <div class="timer">
+        <div class="timer-bar" #timebar></div>
+      </div>
+    </div> -->
+  
+    <!-- Kolona A -->
+    <div class="row row-columns">
+      <div class="first_column">
+        <div class="column a">
+          <div class="columnA">
+            <div *ngFor="let item of itemText['A']; let i = index" class="item" #itemA
+              (click)="!isColumnGuessed['A'] && !revealedItems['A'][i] && showText(item, 'A', i)">
+              <div class="text">{{ item }}</div>
+            </div>
+            <input class="item inputA" type="text" [(ngModel)]="columnInput['A']" placeholder="Column A"
+              [disabled]="isColumnGuessed['A']" (change)="handleInputChange('A')" #itemA>
+          </div>
+        </div>
+      <!-- Kolona B -->
+        <div class="column b">
+          <div class="columnB">
+            <div *ngFor="let item of itemText['B']; let i = index" class="item" #itemB
+              (click)="!isColumnGuessed['B'] && !revealedItems['B'][i] && showText(item, 'B', i)">
+              <div class="text">{{ item }}</div>
+            </div>
+            <input class="item inputB" type="text" [(ngModel)]="columnInput['B']" placeholder="Column B"
+              [disabled]="isColumnGuessed['B']" (change)="handleInputChange('B')" #itemB>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-12">
+        <div class="finall">
+          <input class="finall-input" type="text" placeholder="Final Solution" [disabled]="isColumnGuessed['D']"
+            [(ngModel)]="finallResult" (change)="finalColumn(finallResult ? finallResult : '')" #finall>
+        </div>
+      </div>
 
-  <!-- Kolona A -->
-  <div class="row">
-    <div class="first_column">
-      <div class="column a">
-        <div class="columnA">
-          <div *ngFor="let item of itemText['A']; let i = index" class="item" #itemA
-            (click)="!isColumnGuessed['A'] && !revealedItems['A'][i] && showText(item, 'A', i)">
+      <div class="timer">
+        <div class="timer-bar" #timebar></div>
+      </div>
+  
+     <div class="second_column">
+      <!-- Kolona C -->
+      <div class="column c">
+        <div class="columnC">
+          <input class="item inputC" type="text" [(ngModel)]="columnInput['C']" placeholder="Column C"
+            [disabled]="isColumnGuessed['C']" (change)="handleInputChange('C')" #itemC>
+          <div *ngFor="let item of itemText['C']; let i = index" class="item" #itemC
+            (click)="!isColumnGuessed['C'] && !revealedItems['C'][i] && showText(item, 'C', i)">
             <div class="text">{{ item }}</div>
           </div>
-          <input class="item inputA" type="text" [(ngModel)]="columnInput['A']" placeholder="Column A"
-            [disabled]="isColumnGuessed['A']" (change)="handleInputChange('A')" #itemA>
         </div>
       </div>
-    <!-- Kolona B -->
-      <div class="column b">
-        <div class="columnB">
-          <div *ngFor="let item of itemText['B']; let i = index" class="item" #itemB
-            (click)="!isColumnGuessed['B'] && !revealedItems['B'][i] && showText(item, 'B', i)">
+  
+      <div class="column d">
+        <!-- Kolona D -->
+        <div class="columnD" #ColumnD>
+          <input class="item inputD" type="text" [(ngModel)]="columnInput['D']" placeholder="Column D"
+            [disabled]="isColumnGuessed['D']" (change)="handleInputChange('D')" #itemD>
+          <div *ngFor="let item of itemText['D']; let i = index" class="item" #itemD
+            (click)="!isColumnGuessed['D'] && !revealedItems['D'][i] && showText(item, 'D', i)">
             <div class="text">{{ item }}</div>
           </div>
-          <input class="item inputB" type="text" [(ngModel)]="columnInput['B']" placeholder="Column B"
-            [disabled]="isColumnGuessed['B']" (change)="handleInputChange('B')" #itemB>
         </div>
       </div>
+     </div>
     </div>
-
-    <div class="col-12">
-      <div class="finall">
-        <input class="finall-input" type="text" placeholder="Final Solution" [disabled]="isColumnGuessed['D']"
-          [(ngModel)]="finallResult" (change)="finalColumn(finallResult ? finallResult : '')" #finall>
-      </div>
-    </div>
-
-   <div class="second_column">
-    <!-- Kolona C -->
-    <div class="column c">
-      <div class="columnC">
-        <input class="item inputC" type="text" [(ngModel)]="columnInput['C']" placeholder="Column C"
-          [disabled]="isColumnGuessed['C']" (change)="handleInputChange('C')" #itemC>
-        <div *ngFor="let item of itemText['C']; let i = index" class="item" #itemC
-          (click)="!isColumnGuessed['C'] && !revealedItems['C'][i] && showText(item, 'C', i)">
-          <div class="text">{{ item }}</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="column d">
-      <!-- Kolona D -->
-      <div class="columnD" #ColumnD>
-        <input class="item inputD" type="text" [(ngModel)]="columnInput['D']" placeholder="Column D"
-          [disabled]="isColumnGuessed['D']" (change)="handleInputChange('D')" #itemD>
-        <div *ngFor="let item of itemText['D']; let i = index" class="item" #itemD
-          (click)="!isColumnGuessed['D'] && !revealedItems['D'][i] && showText(item, 'D', i)">
-          <div class="text">{{ item }}</div>
-        </div>
-      </div>
-    </div>
-   </div>
-  </div>
+</div>
 </div>
