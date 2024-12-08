@@ -4,7 +4,6 @@ import { NumberLetterStateService } from 'lib/busines/src/lib/service/number-let
 import { Observable } from 'rxjs';
 import { CalculatorComponent } from '../calculator/calculator.component';
 import { AddNumLetterToDivsDirective } from '../../directives/add-num-letter-to-divs.directive';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @Component({
   selector: 'lib-my-number',
@@ -31,8 +30,7 @@ export class MyNumberComponent {
   userId: string = "";
   messageList: any[] = [];
 
-  constructor(
-  ) {
+  constructor() {
     this.result$ = this.numberStateService.getResult();
   }
 }

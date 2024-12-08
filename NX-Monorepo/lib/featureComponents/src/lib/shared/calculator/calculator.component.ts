@@ -27,9 +27,9 @@ export class CalculatorComponent {
   set toShow(value: string) {
     this.calculationService.toShow = value;
   }
+
   equals() {
       const [number1, number2, number3, number4, number5, number6, result] = this.numberStateService.getNumbers();
-
       this.calculationService.equals({
         number1: number1 ?? 0,
         number2: number2 ?? 0,

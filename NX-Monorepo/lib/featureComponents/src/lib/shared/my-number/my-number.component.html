@@ -1,16 +1,15 @@
 <div class="blue-bacground">
+  <lib-calculator></lib-calculator>
+
   <div class="allDiv">
     <div *ngFor="let number of [1, 2, 3, 4, 5, 6]" #numDiv class="num"
       [ngClass]="{'numBig': number === 5 || number === 6}">
       {{ numbers[number - 1] }}
     </div>
-    <div class="button-container">
       <button class="button" libAddNumLetterToDivs [currentDivIndex]="currentDivIndex" [counterButton]="counterButton"
-        [numDivs]="numDivs" [containerCalc]="containerCalc">Dodaj brojeve</button>
-    </div>
+        [numDivs]="numDivs" [containerCalc]="containerCalc">Stop</button>
   </div>
   <div *ngIf="(result$ | async) !== undefined" class="result">
-    {{ result$ | async }}
+    <p class="result-num">{{ result$ | async }}</p>
   </div>
 </div>
-<lib-calculator></lib-calculator>
